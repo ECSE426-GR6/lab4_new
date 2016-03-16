@@ -7,13 +7,15 @@
 	*          RTX based using CMSIS-RTOS 
   ******************************************************************************
   */
-#include "cmsis_os.h"   
+   
 #include "stm32f4xx_hal.h"              // Keil::Device:STM32Cube HAL:Common
-                // ARM::CMSIS:RTOS:Keil RTX
+#include "cmsis_os.h"					// ARM::CMSIS:RTOS:Keil RTX
 #include "RTE_Components.h"             // Component selection
 #include "led_driver.h"
 #include "Accelerometer.h"
 #include "Temperature.h"
+#include "mail_controller.h"
+
 extern void initializeLED_IO			(void);
 extern void start_Thread_LED			(void);
 extern void Thread_LED(void const *argument);
@@ -139,7 +141,7 @@ void TIM4_init(void){
 __TIM4_CLK_ENABLE();
 		TIM_Handle2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV4; // 168 MHz / 4 = 42 MHz
     TIM_Handle2.Init.Prescaler = 419; // 42 MHz / (419 + 1) = 100 KHz
-    TIM_Handle2.Init.Period = 9999; // 100 KHz / (999 + 1) = 100 Hz
+    TIM_Handle2.Init.Period = 999; // 100 KHz / (999 + 1) = 100 Hz
     TIM_Handle2.Init.CounterMode = TIM_COUNTERMODE_UP;
     TIM_Handle2.Instance = TIM4;   //Same timer whose clocks we enabled
     HAL_TIM_Base_Init(&TIM_Handle2);     // Init timer
@@ -182,7 +184,7 @@ void accelerometer_thread(void const *argument){
 while (1){
 	osSignalWait(ACC_DATA_READY_SIGNAL, osWaitForever);
 	
-		MAIL_send_input(MAIL_TEMP, Rangle()); //Change MAIL_TEMP to MAIL_ANGLE
+	MAIL_send_input(MAIL_TEMP, Rangle()); //Change MAIL_TEMP to MAIL_ANGLE
 	
 	osSignalClear(accelerometer_thread_id, ACC_DATA_READY_SIGNAL);
 	
