@@ -15,6 +15,7 @@
 #include "Accelerometer.h"
 #include "Temperature.h"
 #include "mail_controller.h"
+#include "kp_driver.h"
 
 extern void initializeLED_IO			(void);
 extern void start_Thread_LED			(void);
@@ -107,12 +108,15 @@ int main (void) {
 	MAIL_CONTROLLER_init_mailboxes();
 	ConfigureADC();
 	LED_init_io();
+	KP_init();
+	
 	TIM3_init();
 	TIM4_init();
 	
 	MAIL_CONTROLLER_start_thread();
 	LED_start_thread();
 	temperature_start_thread();
+	KEYPAD_start_thread();
 	/* User codes ends here*/
   
 	osKernelStart();                          /* start thread execution         */
@@ -175,10 +179,6 @@ void TIM4_IRQHandler(void)
         }
     }
 }
-
-
-
-
 
 void accelerometer_thread(void const *argument){
 while (1){
