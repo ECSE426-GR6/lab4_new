@@ -21,13 +21,11 @@ extern void initializeLED_IO			(void);
 extern void start_Thread_LED			(void);
 extern void Thread_LED(void const *argument);
 extern osThreadId tid_Thread_LED;
-void accelerometer_thread(void const *argument);
-
 
 const int ACC_DATA_READY_SIGNAL = 10;
 
 void accelerometer_thread(void const *argument);
-int accelerometer_thread_start(void);
+int accelerometer_start_thread(void);
 
 osThreadId accelerometer_thread_id;
 osThreadDef(accelerometer_thread, osPriorityNormal, 1, 0);
@@ -107,6 +105,7 @@ int main (void) {
  
 	MAIL_CONTROLLER_init_mailboxes();
 	ConfigureADC();
+	accelerometer_init();
 	LED_init_io();
 	KP_init();
 	
@@ -116,6 +115,7 @@ int main (void) {
 	MAIL_CONTROLLER_start_thread();
 	LED_start_thread();
 	temperature_start_thread();
+	accelerometer_start_thread();
 	KEYPAD_start_thread();
 	/* User codes ends here*/
   
@@ -180,15 +180,38 @@ void TIM4_IRQHandler(void)
     }
 }
 
-void accelerometer_thread(void const *argument){
-while (1){
-	osSignalWait(ACC_DATA_READY_SIGNAL, osWaitForever);
-	
-	MAIL_send_input(MAIL_TEMP, Rangle()); //Change MAIL_TEMP to MAIL_ANGLE
-	
-	osSignalClear(accelerometer_thread_id, ACC_DATA_READY_SIGNAL);
+void EXTI0_IRQHandler(void){
+
+	HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_0);
 	
 }
+
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_pin){
+  
+	if (GPIO_pin == GPIO_PIN_0){
+		osSignalSet(accelerometer_thread_id, ACC_DATA_READY_SIGNAL);
+	}
+}
+
+int accelerometer_start_thread(void){
+	accelerometer_thread_id = osThreadCreate(osThread(accelerometer_thread ), NULL); // Start LED_Thread
+
+  	if (!accelerometer_thread_id) return(-1); 
+  	return(0);
+}
+
+
+void accelerometer_thread(void const *argument){
+	float angle;
+	while (1){
+		osSignalWait(ACC_DATA_READY_SIGNAL, osWaitForever);
+		angle = Rangle();
+			
+		MAIL_send_input(MAIL_TEMP, angle); //Change MAIL_TEMP to MAIL_ANGLE
+		
+		osSignalClear(accelerometer_thread_id, ACC_DATA_READY_SIGNAL);
+		
+	}
 }
 
 int temperature_start_thread(void){
@@ -205,8 +228,7 @@ void temperature_thread(void const *argument) {
 		osSignalWait(TEMP_DATA_READY_SIGNAL, osWaitForever);
 		
 		temp = getTemp();
-		printf("%f\n",temp);
-		MAIL_send_input(MAIL_TEMP, temp);
+		MAIL_send_input(MAIL_ANGLE, temp);
 		
 		osSignalClear(temperature_thread_id, ACC_DATA_READY_SIGNAL);
 	}

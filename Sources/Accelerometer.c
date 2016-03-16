@@ -36,19 +36,12 @@ void accelerometer_init(void){
 
 	HAL_NVIC_SetPriority(EXTI0_IRQn, 2, 0);
 	HAL_NVIC_EnableIRQ(EXTI0_IRQn);
+	
+	NVIC_SetPriority(EXTI0_IRQn, 1);
+	NVIC_EnableIRQ(EXTI0_IRQn);
 }
 
-void EXTI0_IRQHandler(void){
 
-	HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_0);
-}
-
-void HAL_GPIO_EXTI_Callback(uint16_t GPIO_pin){
-  
-	if (GPIO_pin == GPIO_PIN_0){
-		data_ready = 1;
-	}
-}
 
 float Rangle(){
 
