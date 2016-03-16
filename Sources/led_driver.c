@@ -77,7 +77,6 @@ void Thread_LED (void const *argument) {
 					LED_switch_temp();
 				}
 				LED_set_value(package_recieved->value);
-				printf("Message recieved by led");
 				
 			} else if (package_recieved->type == MAIL_ANGLE) {
 				if (display_mode != MAIL_ANGLE) {
@@ -90,6 +89,7 @@ void Thread_LED (void const *argument) {
 				//implement this part
 			}
 		}
+		osMailFree(led_mailbox, package_recieved);
 	}
 }
 

@@ -1,10 +1,9 @@
 --cpu Cortex-M4.fp
 ".\objects\main.o"
-".\objects\supporting_functions.o"
+".\objects\accelerometer.o"
 ".\objects\fput_debug.o"
 ".\objects\led_driver.o"
 ".\objects\mail_controller.o"
-".\objects\accelerometer.o"
 ".\objects\temperature.o"
 ".\objects\lis3dsh.o"
 "C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Lib\ARM\arm_cortexM4lf_math.lib"

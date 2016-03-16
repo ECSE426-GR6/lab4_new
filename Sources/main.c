@@ -7,9 +7,9 @@
 	*          RTX based using CMSIS-RTOS 
   ******************************************************************************
   */
-
+#include "cmsis_os.h"   
 #include "stm32f4xx_hal.h"              // Keil::Device:STM32Cube HAL:Common
-#include "cmsis_os.h"                   // ARM::CMSIS:RTOS:Keil RTX
+                // ARM::CMSIS:RTOS:Keil RTX
 #include "RTE_Components.h"             // Component selection
 #include "led_driver.h"
 #include "Accelerometer.h"
@@ -19,13 +19,19 @@ extern void start_Thread_LED			(void);
 extern void Thread_LED(void const *argument);
 extern osThreadId tid_Thread_LED;
 void accelerometer_thread(void const *argument);
-void temperature_thread(void const *argument);
+
 
 const int ACC_DATA_READY_SIGNAL = 10;
-const int TEMP_DATA_READY_SIGNAL = 20;
+
+void accelerometer_thread(void const *argument);
+int accelerometer_thread_start(void);
 
 osThreadId accelerometer_thread_id;
 osThreadDef(accelerometer_thread, osPriorityNormal, 1, 0);
+
+const int TEMP_DATA_READY_SIGNAL = 20;
+void temperature_thread(void const *argument);
+int temperature_start_thread(void);
 
 osThreadId temperature_thread_id;
 osThreadDef(temperature_thread, osPriorityNormal, 1, 0);
@@ -97,13 +103,14 @@ int main (void) {
 	// start_Thread_LED();                       /* Create LED thread              */
  
 	MAIL_CONTROLLER_init_mailboxes();
-	
+	ConfigureADC();
 	LED_init_io();
 	TIM3_init();
+	TIM4_init();
 	
 	MAIL_CONTROLLER_start_thread();
 	LED_start_thread();
-
+	temperature_start_thread();
 	/* User codes ends here*/
   
 	osKernelStart();                          /* start thread execution         */
@@ -118,7 +125,7 @@ TIM_HandleTypeDef TIM_Handle2;
 void TIM3_init(void){
 __TIM3_CLK_ENABLE();
 		TIM_Handle.Init.ClockDivision = TIM_CLOCKDIVISION_DIV4; // 168 MHz / 4 = 42 MHz
-    TIM_Handle.Init.Prescaler = 499; // 42 MHz / (419 + 1) = 100 KHz
+    TIM_Handle.Init.Prescaler = 419; // 42 MHz / (419 + 1) = 100 KHz
     TIM_Handle.Init.Period = 499; // 100 KHz / (499 + 1) = 200 Hz
     TIM_Handle.Init.CounterMode = TIM_COUNTERMODE_UP;
     TIM_Handle.Instance = TIM3;   //Same timer whose clocks we enabled
@@ -131,8 +138,8 @@ __TIM3_CLK_ENABLE();
 void TIM4_init(void){
 __TIM4_CLK_ENABLE();
 		TIM_Handle2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV4; // 168 MHz / 4 = 42 MHz
-    TIM_Handle2.Init.Prescaler = 499; // 42 MHz / (419 + 1) = 100 KHz
-    TIM_Handle2.Init.Period = 499; // 100 KHz / (499 + 1) = 200 Hz
+    TIM_Handle2.Init.Prescaler = 419; // 42 MHz / (419 + 1) = 100 KHz
+    TIM_Handle2.Init.Period = 9999; // 100 KHz / (999 + 1) = 100 Hz
     TIM_Handle2.Init.CounterMode = TIM_COUNTERMODE_UP;
     TIM_Handle2.Instance = TIM4;   //Same timer whose clocks we enabled
     HAL_TIM_Base_Init(&TIM_Handle2);     // Init timer
@@ -182,11 +189,22 @@ while (1){
 }
 }
 
+int temperature_start_thread(void){
+	temperature_thread_id = osThreadCreate(osThread(temperature_thread ), NULL); // Start LED_Thread
+
+  	if (!temperature_thread_id) return(-1); 
+  	return(0);
+}
+
 void temperature_thread(void const *argument) {
+	float temp;
+	
 	while (1){
 		osSignalWait(TEMP_DATA_READY_SIGNAL, osWaitForever);
 		
-		MAIL_send_input(MAIL_TEMP, getTemp());
+		temp = getTemp();
+		printf("%f\n",temp);
+		MAIL_send_input(MAIL_TEMP, temp);
 		
 		osSignalClear(temperature_thread_id, ACC_DATA_READY_SIGNAL);
 	}
@@ -200,6 +218,5 @@ void testFuntion(void){
 	package_to_send->value = 877.3f;
 	package_to_send->type = MAIL_TEMP;
 	osMailPut(input_mailbox, package_to_send);
-	
-	printf("Message sent from main");
+
 }

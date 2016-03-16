@@ -65,7 +65,7 @@ void Thread_MAIL_CONTROLLER(void const *argument) {
 			
 			if (package_recieved->type == MAIL_TEMP) { //Update temp
 				temperature = package_recieved->value;
-				printf("Message recieved from main");
+				
 			} else if (package_recieved->type == MAIL_ANGLE) { //Update angle
 				angle = package_recieved->value;
 				
@@ -108,8 +108,6 @@ void Thread_MAIL_CONTROLLER(void const *argument) {
 						package_to_send->value = key_event;
 						package_to_send->type = MAIL_KEY;
 						osMailPut(led_mailbox, package_to_send);
-						
-						printf("Message sent from controller to led");
 					}
 				}
 			}

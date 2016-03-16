@@ -28,7 +28,7 @@ void ConfigureADC(void)
     // g_AdcHandle.Init.EOCSelection = DISABLE;
 
     HAL_ADC_Init(&g_AdcHandle);
-    // HAL_ADC_Start(&g_AdcHandle);
+    
 
     adcChannel.Channel = ADC_CHANNEL_TEMPSENSOR;
     adcChannel.Rank = 1;
@@ -36,6 +36,8 @@ void ConfigureADC(void)
     adcChannel.Offset = 0;
 
     HAL_ADC_ConfigChannel(&g_AdcHandle, &adcChannel);
+		
+		HAL_ADC_Start(&g_AdcHandle);
 }
 
 
