@@ -5,8 +5,9 @@ float angle = 0.0f;
 
 int key_event = -1;
 int target_set = 0;
+int alarm_on = 0;
 
-MAIL_package_type curent_display_type = MAIL_TEMP;
+MAIL_package_type curent_display_type = MAIL_ANGLE;
 
 //Mailbox sensors and keypad will use to send data to controller
 osMailQDef(input_mailbox, 5, MAIL_package_typedef);
@@ -52,6 +53,8 @@ int MAIL_CONTROLLER_start_thread(void) {
 }
 
 
+int test = 0;
+
 void Thread_MAIL_CONTROLLER(void const *argument) {
 	osEvent event;
 	MAIL_package_typedef *package_recieved;
@@ -64,14 +67,33 @@ void Thread_MAIL_CONTROLLER(void const *argument) {
 			package_recieved = (MAIL_package_typedef *) event.value.p;
 			
 			if (package_recieved->type == MAIL_TEMP) { //Update temp
+							
+				if (test < 1500) package_recieved->value += 20;
+				test = (test +1) % 3000;
+				
 				temperature = package_recieved->value;
 				
+				if (temperature >= ALARM_THRESHOLD && !alarm_on) {
+					package_to_send = osMailAlloc(led_mailbox, osWaitForever);
+					package_to_send->type = MAIL_ALARM;
+					package_to_send->value = 100.0f;
+					osMailPut(led_mailbox, package_to_send);
+					alarm_on = 1;
+				} else if(temperature < ALARM_THRESHOLD && alarm_on) {
+					package_to_send = osMailAlloc(led_mailbox, osWaitForever);
+					package_to_send->type = MAIL_ALARM;
+					package_to_send->value = 0.0f;
+					osMailPut(led_mailbox, package_to_send);
+					alarm_on = 0;
+				}
+								
 			} else if (package_recieved->type == MAIL_ANGLE) { //Update angle
 				angle = package_recieved->value;
 				
 			} else if (package_recieved->type == MAIL_KEY) { //Update key event
-				key_event = (int)package_recieved->value;
 				
+				key_event = (int)package_recieved->value;
+				printf("%i\n", key_event);
 				if (key_event == KP_STAR) { //Star pressed
 					//Change which type of event we send to led
 					if (curent_display_type == MAIL_TEMP) {
@@ -89,7 +111,7 @@ void Thread_MAIL_CONTROLLER(void const *argument) {
 						package_recieved->value = temperature;
 					}
 					
-				} else if (key_event == KP_POUND) { //Pound pressed
+				} else if (key_event == KP_POUND && curent_display_type != MAIL_TEMP) { //Pound pressed
 					if (!target_set) {
 						target_set = 1;
 						

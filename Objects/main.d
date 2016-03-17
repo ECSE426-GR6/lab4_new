@@ -40,3 +40,5 @@
 .\objects\main.o: .\Headers\mail_controller.h
 .\objects\main.o: .\Headers\Accelerometer.h
 .\objects\main.o: .\Headers\Temperature.h
+.\objects\main.o: .\Headers\kp_driver.h
+.\objects\main.o: .\Headers\kalman.h

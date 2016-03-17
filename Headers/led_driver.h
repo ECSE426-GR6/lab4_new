@@ -24,6 +24,13 @@
 #define cathode3 GPIO_PIN_11
 #define cathode4 GPIO_PIN_10
 
+#define ALARM_PORT GPIOD
+
+#define ALARM_UP GPIO_PIN_13
+#define ALARM_LEFT GPIO_PIN_14
+#define ALARM_RIGHT GPIO_PIN_12
+#define ALARM_DOWN GPIO_PIN_15
+
 #define segA 0x0001
 #define segB 0x0002
 #define segC 0x0004
@@ -46,8 +53,10 @@
 #define mid_bar 0x40
 
 
+#define ALARM_LED_SWITCH_COUNT 50
+
 int LED_start_thread(void);
-void LED_set_target(float);
+void LED_set_target(void);
 void LED_switch_temp(void);
 void LED_switch_angle(void);
 void LED_alarm_on(void);

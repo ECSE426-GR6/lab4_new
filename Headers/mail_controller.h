@@ -6,10 +6,13 @@
 #define KP_STAR 10
 #define KP_POUND 11
 
+#define ALARM_THRESHOLD 35
+
 typedef enum {
 	MAIL_TEMP = 0,      
 	MAIL_ANGLE = 1,
-	MAIL_KEY = 2
+	MAIL_KEY = 2,
+	MAIL_ALARM = 3
 } MAIL_package_type;
 
 typedef struct {

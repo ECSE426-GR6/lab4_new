@@ -53,10 +53,10 @@ void Thread_keypad(void const *argument) {
 		key = KP_getEvent();
 		
 		if (key != -1){
-			MAIL_send_input(MAIL_KEY, key);
+			printf("%i\n", key);
+			MAIL_send_input(MAIL_KEY, (float) key);
 		}
-		
-		osWait(10);
+		osDelay(10);
 	}
 }
 
@@ -67,6 +67,8 @@ void Thread_keypad(void const *argument) {
 void KP_update(void){
 	
 
+	
+	
 	cols[0] = HAL_GPIO_ReadPin(KP_PORT, COL_0_PIN);
 	cols[1] = HAL_GPIO_ReadPin(KP_PORT, COL_1_PIN);
 	cols[2] = HAL_GPIO_ReadPin(KP_PORT, COL_2_PIN);
@@ -122,7 +124,9 @@ void update_latched(void){
 		if (!cols[latch_x]){
 			if (!rows[latch_y]){
 				latched = 0;
+				latch_ready = 0;
 				event_ready = 1;
+				
 				event_value = values[latch_y][latch_x];
 			}
 		}
@@ -190,11 +194,13 @@ int KP_getValueDown(void){
 void KP_init(void){
 	GPIO_InitTypeDef GPIO_InitStruct;
 	
-	GPIO_InitStruct.Pin = GPIO_PIN_1 | GPIO_PIN_2 | GPIO_PIN_3 | GPIO_PIN_4 | GPIO_PIN_5 | GPIO_PIN_6 | GPIO_PIN_7;
+	__GPIOC_CLK_ENABLE();
+	
+	GPIO_InitStruct.Pin = GPIO_PIN_6 | GPIO_PIN_7 | GPIO_PIN_8 | GPIO_PIN_9 | GPIO_PIN_10 | GPIO_PIN_11 | GPIO_PIN_12;
 	GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
 	GPIO_InitStruct.Pull = GPIO_PULLDOWN;
 	GPIO_InitStruct.Speed = GPIO_SPEED_FAST;
-	HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+	HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
 }
 

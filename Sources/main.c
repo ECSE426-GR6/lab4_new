@@ -16,6 +16,7 @@
 #include "Temperature.h"
 #include "mail_controller.h"
 #include "kp_driver.h"
+#include "kalman.h" 
 
 extern void initializeLED_IO			(void);
 extern void start_Thread_LED			(void);
@@ -103,6 +104,9 @@ int main (void) {
 	// initializeLED_IO();                       /* Initialize LED GPIO Buttons    */
 	// start_Thread_LED();                       /* Create LED thread              */
  
+	init_acc_kstate(0.01f, 0.1f, 0.0f, 0.1f, 0.0f);
+	init_temp_kstate(0.005f, 0.1f, 0.0f, 3.0f, 0.0f);
+	
 	MAIL_CONTROLLER_init_mailboxes();
 	ConfigureADC();
 	accelerometer_init();
@@ -145,7 +149,7 @@ void TIM4_init(void){
 __TIM4_CLK_ENABLE();
 		TIM_Handle2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV4; // 168 MHz / 4 = 42 MHz
     TIM_Handle2.Init.Prescaler = 419; // 42 MHz / (419 + 1) = 100 KHz
-    TIM_Handle2.Init.Period = 999; // 100 KHz / (999 + 1) = 100 Hz
+    TIM_Handle2.Init.Period = 1999; // 100 KHz / (1999 + 1) = 50 Hz
     TIM_Handle2.Init.CounterMode = TIM_COUNTERMODE_UP;
     TIM_Handle2.Instance = TIM4;   //Same timer whose clocks we enabled
     HAL_TIM_Base_Init(&TIM_Handle2);     // Init timer
@@ -207,7 +211,7 @@ void accelerometer_thread(void const *argument){
 		osSignalWait(ACC_DATA_READY_SIGNAL, osWaitForever);
 		angle = Rangle();
 			
-		MAIL_send_input(MAIL_TEMP, angle); //Change MAIL_TEMP to MAIL_ANGLE
+		MAIL_send_input(MAIL_ANGLE, k_filter_acc(angle));
 		
 		osSignalClear(accelerometer_thread_id, ACC_DATA_READY_SIGNAL);
 		
@@ -228,7 +232,7 @@ void temperature_thread(void const *argument) {
 		osSignalWait(TEMP_DATA_READY_SIGNAL, osWaitForever);
 		
 		temp = getTemp();
-		MAIL_send_input(MAIL_ANGLE, temp);
+		MAIL_send_input(MAIL_TEMP, k_filter_temp(temp));
 		
 		osSignalClear(temperature_thread_id, ACC_DATA_READY_SIGNAL);
 	}

@@ -74,7 +74,6 @@ float roll;
 float angle;
 
  pitch = atan(x / (sqrt(y*y+z*z)))*(180/PI) +90 ;
-		printf("%f\n", pitch);
 // + 90 degrees is added to each angle to demonstrate that the sensor works both directions.
 	// cannot display negative
 	roll = atan(y / (sqrt(x*x+z*z)))*(180/PI) +90 ;
