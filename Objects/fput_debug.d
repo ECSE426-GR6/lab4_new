@@ -10,8 +10,8 @@
 .\objects\fput_debug.o: C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include\core_cmSimd.h
 .\objects\fput_debug.o: C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.7.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include\system_stm32f4xx.h
 .\objects\fput_debug.o: C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.7.0\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal.h
-.\objects\fput_debug.o: C:\Users\fobrie\lab4\RTE\Device\STM32F407VGTx\stm32f4xx_hal_conf.h
-.\objects\fput_debug.o: C:\Users\fobrie\lab4\RTE\RTE_Components.h
+.\objects\fput_debug.o: C:\Users\Francis\Dropbox\School\2016 - Winter\Microprocessor Systems\lab_4_demo\RTE\Device\STM32F407VGTx\stm32f4xx_hal_conf.h
+.\objects\fput_debug.o: C:\Users\Francis\Dropbox\School\2016 - Winter\Microprocessor Systems\lab_4_demo\RTE\RTE_Components.h
 .\objects\fput_debug.o: C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.7.0\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_rcc.h
 .\objects\fput_debug.o: C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.7.0\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_def.h
 .\objects\fput_debug.o: C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.7.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include\stm32f4xx.h

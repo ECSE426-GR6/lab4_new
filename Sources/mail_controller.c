@@ -68,8 +68,9 @@ void Thread_MAIL_CONTROLLER(void const *argument) {
 			
 			if (package_recieved->type == MAIL_TEMP) { //Update temp
 							
-				if (test < 1500) package_recieved->value += 20;
-				test = (test +1) % 3000;
+				//Synthetic alarm simulator
+				//if (test < 1500) package_recieved->value += 20;
+				//test = (test +1) % 3000;
 				
 				temperature = package_recieved->value;
 				

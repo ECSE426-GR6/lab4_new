@@ -33,7 +33,7 @@ void latch_count_update(void);
 ///RTOS THREAD FUNCTIONS -----------------------------------------
 void Thread_keypad(void const *argument);					// thread function
 osThreadId tid_Thread_keypad;                              // thread id
-osThreadDef(Thread_keypad, osPriorityNormal, 1, 0);
+osThreadDef(Thread_keypad, osPriorityBelowNormal, 1, 0);
 
 int KEYPAD_start_thread(void) {
 	tid_Thread_keypad = osThreadCreate(osThread(Thread_keypad), NULL); // Start LED_Thread
@@ -53,9 +53,9 @@ void Thread_keypad(void const *argument) {
 		key = KP_getEvent();
 		
 		if (key != -1){
-			printf("%i\n", key);
 			MAIL_send_input(MAIL_KEY, (float) key);
 		}
+		
 		osDelay(10);
 	}
 }
