@@ -105,7 +105,7 @@ int main (void) {
 	// start_Thread_LED();                       /* Create LED thread              */
  
 	init_acc_kstate(0.01f, 0.1f, 0.0f, 0.1f, 0.0f);
-	init_temp_kstate(0.005f, 0.1f, 0.0f, 3.0f, 0.0f);
+	init_temp_kstate(0.005f, 0.05f, 0.0f, 5.0f, 0.0f);
 	
 	MAIL_CONTROLLER_init_mailboxes();
 	ConfigureADC();
@@ -149,7 +149,7 @@ void TIM4_init(void){
 __TIM4_CLK_ENABLE();
 		TIM_Handle2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV4; // 168 MHz / 4 = 42 MHz
     TIM_Handle2.Init.Prescaler = 419; // 42 MHz / (419 + 1) = 100 KHz
-    TIM_Handle2.Init.Period = 1999; // 100 KHz / (1999 + 1) = 50 Hz
+    TIM_Handle2.Init.Period = 9999; // 100 KHz / (9999 + 1) = 10 Hz
     TIM_Handle2.Init.CounterMode = TIM_COUNTERMODE_UP;
     TIM_Handle2.Instance = TIM4;   //Same timer whose clocks we enabled
     HAL_TIM_Base_Init(&TIM_Handle2);     // Init timer

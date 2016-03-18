@@ -418,14 +418,69 @@
               <FilePath>.\Sources\main.c</FilePath>
             </File>
             <File>
-              <FileName>Thread_LED.c</FileName>
+              <FileName>Accelerometer.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\Sources\Thread_LED.c</FilePath>
+              <FilePath>.\Sources\Accelerometer.c</FilePath>
             </File>
             <File>
-              <FileName>supporting_functions.c</FileName>
+              <FileName>fput_debug.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\Sources\supporting_functions.c</FilePath>
+              <FilePath>.\Sources\fput_debug.c</FilePath>
+            </File>
+            <File>
+              <FileName>kalman.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Sources\kalman.c</FilePath>
+            </File>
+            <File>
+              <FileName>kp_driver.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Sources\kp_driver.c</FilePath>
+            </File>
+            <File>
+              <FileName>led_driver.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Sources\led_driver.c</FilePath>
+            </File>
+            <File>
+              <FileName>mail_controller.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Sources\mail_controller.c</FilePath>
+            </File>
+            <File>
+              <FileName>Temperature.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Sources\Temperature.c</FilePath>
+            </File>
+            <File>
+              <FileName>Accelerometer.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Headers\Accelerometer.h</FilePath>
+            </File>
+            <File>
+              <FileName>kalman.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Headers\kalman.h</FilePath>
+            </File>
+            <File>
+              <FileName>kp_driver.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Headers\kp_driver.h</FilePath>
+            </File>
+            <File>
+              <FileName>led_driver.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Headers\led_driver.h</FilePath>
+            </File>
+            <File>
+              <FileName>mail_controller.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Headers\mail_controller.h</FilePath>
+            </File>
+            <File>
+              <FileName>Temperature.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Headers\Temperature.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -859,14 +914,69 @@
               <FilePath>.\Sources\main.c</FilePath>
             </File>
             <File>
-              <FileName>Thread_LED.c</FileName>
+              <FileName>Accelerometer.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\Sources\Thread_LED.c</FilePath>
+              <FilePath>.\Sources\Accelerometer.c</FilePath>
             </File>
             <File>
-              <FileName>supporting_functions.c</FileName>
+              <FileName>fput_debug.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\Sources\supporting_functions.c</FilePath>
+              <FilePath>.\Sources\fput_debug.c</FilePath>
+            </File>
+            <File>
+              <FileName>kalman.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Sources\kalman.c</FilePath>
+            </File>
+            <File>
+              <FileName>kp_driver.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Sources\kp_driver.c</FilePath>
+            </File>
+            <File>
+              <FileName>led_driver.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Sources\led_driver.c</FilePath>
+            </File>
+            <File>
+              <FileName>mail_controller.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Sources\mail_controller.c</FilePath>
+            </File>
+            <File>
+              <FileName>Temperature.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Sources\Temperature.c</FilePath>
+            </File>
+            <File>
+              <FileName>Accelerometer.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Headers\Accelerometer.h</FilePath>
+            </File>
+            <File>
+              <FileName>kalman.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Headers\kalman.h</FilePath>
+            </File>
+            <File>
+              <FileName>kp_driver.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Headers\kp_driver.h</FilePath>
+            </File>
+            <File>
+              <FileName>led_driver.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Headers\led_driver.h</FilePath>
+            </File>
+            <File>
+              <FileName>mail_controller.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Headers\mail_controller.h</FilePath>
+            </File>
+            <File>
+              <FileName>Temperature.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Headers\Temperature.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -1300,14 +1410,69 @@
               <FilePath>.\Sources\main.c</FilePath>
             </File>
             <File>
-              <FileName>Thread_LED.c</FileName>
+              <FileName>Accelerometer.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\Sources\Thread_LED.c</FilePath>
+              <FilePath>.\Sources\Accelerometer.c</FilePath>
             </File>
             <File>
-              <FileName>supporting_functions.c</FileName>
+              <FileName>fput_debug.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\Sources\supporting_functions.c</FilePath>
+              <FilePath>.\Sources\fput_debug.c</FilePath>
+            </File>
+            <File>
+              <FileName>kalman.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Sources\kalman.c</FilePath>
+            </File>
+            <File>
+              <FileName>kp_driver.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Sources\kp_driver.c</FilePath>
+            </File>
+            <File>
+              <FileName>led_driver.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Sources\led_driver.c</FilePath>
+            </File>
+            <File>
+              <FileName>mail_controller.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Sources\mail_controller.c</FilePath>
+            </File>
+            <File>
+              <FileName>Temperature.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Sources\Temperature.c</FilePath>
+            </File>
+            <File>
+              <FileName>Accelerometer.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Headers\Accelerometer.h</FilePath>
+            </File>
+            <File>
+              <FileName>kalman.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Headers\kalman.h</FilePath>
+            </File>
+            <File>
+              <FileName>kp_driver.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Headers\kp_driver.h</FilePath>
+            </File>
+            <File>
+              <FileName>led_driver.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Headers\led_driver.h</FilePath>
+            </File>
+            <File>
+              <FileName>mail_controller.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Headers\mail_controller.h</FilePath>
+            </File>
+            <File>
+              <FileName>Temperature.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Headers\Temperature.h</FilePath>
             </File>
           </Files>
         </Group>

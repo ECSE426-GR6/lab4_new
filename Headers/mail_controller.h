@@ -6,7 +6,7 @@
 #define KP_STAR 10
 #define KP_POUND 11
 
-#define ALARM_THRESHOLD 35
+#define ALARM_THRESHOLD 40
 
 typedef enum {
 	MAIL_TEMP = 0,      

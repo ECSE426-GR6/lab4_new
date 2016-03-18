@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Objects\Blinky.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Objects\Blinky.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060061: Last Updated: Fri Mar 18 13:49:00 2016
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050169: Last Updated: Fri Mar 18 14:32:12 2016
 <BR><P>
 <H3>Maximum Stack Usage =        304 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -476,14 +476,13 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Thread_keypad
 </UL>
 
-<P><STRONG><a name="[8b]"></a>Thread_keypad</STRONG> (Thumb, 50 bytes, Stack size 0 bytes, kp_driver.o(.text))
+<P><STRONG><a name="[8b]"></a>Thread_keypad</STRONG> (Thumb, 42 bytes, Stack size 0 bytes, kp_driver.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = Thread_keypad &rArr; MAIL_send_input &rArr; osMailPut &rArr; osMessagePut &rArr; isrMessagePut &rArr; isr_mbx_send &rArr; rt_psq_enq
 </UL>
-<BR>[Calls]<UL><LI><a href="#[d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osDelay
+<BR>[Calls]<UL><LI><a href="#[d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osDelay
 <LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;KP_update
 <LI><a href="#[d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;KP_getEvent
 <LI><a href="#[bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MAIL_send_input
-<LI><a href="#[d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> kp_driver.o(.constdata)
 </UL>
@@ -505,76 +504,76 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[d3]"></a>LED_alarm_off</STRONG> (Thumb, 30 bytes, Stack size 8 bytes, led_driver.o(.text))
+<P><STRONG><a name="[d2]"></a>LED_alarm_off</STRONG> (Thumb, 30 bytes, Stack size 8 bytes, led_driver.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = LED_alarm_off
 </UL>
-<BR>[Calls]<UL><LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_WritePin
+<BR>[Calls]<UL><LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_WritePin
 </UL>
 <BR>[Called By]<UL><LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Thread_LED
 </UL>
 
-<P><STRONG><a name="[de]"></a>LED_alarm_on</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, led_driver.o(.text))
+<P><STRONG><a name="[dd]"></a>LED_alarm_on</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, led_driver.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Thread_LED
 </UL>
 
-<P><STRONG><a name="[d6]"></a>digit_mask</STRONG> (Thumb, 102 bytes, Stack size 0 bytes, led_driver.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;led_segments
+<P><STRONG><a name="[d5]"></a>digit_mask</STRONG> (Thumb, 102 bytes, Stack size 0 bytes, led_driver.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;led_segments
 </UL>
 
-<P><STRONG><a name="[d5]"></a>led_segments</STRONG> (Thumb, 60 bytes, Stack size 8 bytes, led_driver.o(.text))
+<P><STRONG><a name="[d4]"></a>led_segments</STRONG> (Thumb, 60 bytes, Stack size 8 bytes, led_driver.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = led_segments
 </UL>
-<BR>[Calls]<UL><LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;digit_mask
+<BR>[Calls]<UL><LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;digit_mask
 </UL>
-<BR>[Called By]<UL><LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED_set_value
+<BR>[Called By]<UL><LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED_set_value
 </UL>
 
-<P><STRONG><a name="[d7]"></a>LED_set_value</STRONG> (Thumb, 848 bytes, Stack size 12 bytes, led_driver.o(.text))
+<P><STRONG><a name="[d6]"></a>LED_set_value</STRONG> (Thumb, 848 bytes, Stack size 12 bytes, led_driver.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = LED_set_value &rArr; led_segments
 </UL>
-<BR>[Calls]<UL><LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;led_segments
+<BR>[Calls]<UL><LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;led_segments
 </UL>
 <BR>[Called By]<UL><LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Thread_LED
 </UL>
 
-<P><STRONG><a name="[dd]"></a>change_digit</STRONG> (Thumb, 298 bytes, Stack size 16 bytes, led_driver.o(.text))
+<P><STRONG><a name="[dc]"></a>change_digit</STRONG> (Thumb, 298 bytes, Stack size 16 bytes, led_driver.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = change_digit
 </UL>
 <BR>[Called By]<UL><LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Thread_LED
 </UL>
 
-<P><STRONG><a name="[dc]"></a>LED_set_target</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, led_driver.o(.text))
+<P><STRONG><a name="[db]"></a>LED_set_target</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, led_driver.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Thread_LED
 </UL>
 
-<P><STRONG><a name="[db]"></a>LED_switch_angle</STRONG> (Thumb, 46 bytes, Stack size 0 bytes, led_driver.o(.text))
+<P><STRONG><a name="[da]"></a>LED_switch_angle</STRONG> (Thumb, 46 bytes, Stack size 0 bytes, led_driver.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Thread_LED
 </UL>
 
-<P><STRONG><a name="[da]"></a>LED_switch_temp</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, led_driver.o(.text))
+<P><STRONG><a name="[d9]"></a>LED_switch_temp</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, led_driver.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Thread_LED
 </UL>
 
 <P><STRONG><a name="[8c]"></a>Thread_LED</STRONG> (Thumb, 238 bytes, Stack size 16 bytes, led_driver.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = Thread_LED &rArr; osMailGet &rArr; osMessageGet &rArr; isrMessageGet &rArr; isr_mbx_receive &rArr; rt_psq_enq
 </UL>
-<BR>[Calls]<UL><LI><a href="#[d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osMailGet
-<LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osMailFree
-<LI><a href="#[d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;led_mailbox_id
-<LI><a href="#[da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED_switch_temp
-<LI><a href="#[db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED_switch_angle
-<LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED_set_target
-<LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;change_digit
-<LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED_set_value
-<LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED_alarm_on
-<LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED_alarm_off
+<BR>[Calls]<UL><LI><a href="#[d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osMailGet
+<LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osMailFree
+<LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;led_mailbox_id
+<LI><a href="#[d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED_switch_temp
+<LI><a href="#[da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED_switch_angle
+<LI><a href="#[db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED_set_target
+<LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;change_digit
+<LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED_set_value
+<LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED_alarm_on
+<LI><a href="#[d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED_alarm_off
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> led_driver.o(.constdata)
 </UL>
-<P><STRONG><a name="[e0]"></a>switch_alarm_light</STRONG> (Thumb, 64 bytes, Stack size 8 bytes, led_driver.o(.text))
+<P><STRONG><a name="[df]"></a>switch_alarm_light</STRONG> (Thumb, 64 bytes, Stack size 8 bytes, led_driver.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = switch_alarm_light
 </UL>
-<BR>[Calls]<UL><LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_WritePin
+<BR>[Calls]<UL><LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_WritePin
 </UL>
 <BR>[Called By]<UL><LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED_update
 </UL>
@@ -587,10 +586,10 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[e1]"></a>LED_setPins</STRONG> (Thumb, 432 bytes, Stack size 8 bytes, led_driver.o(.text))
+<P><STRONG><a name="[e0]"></a>LED_setPins</STRONG> (Thumb, 432 bytes, Stack size 8 bytes, led_driver.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = LED_setPins
 </UL>
-<BR>[Calls]<UL><LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_WritePin
+<BR>[Calls]<UL><LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_WritePin
 </UL>
 <BR>[Called By]<UL><LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED_update
 </UL>
@@ -598,9 +597,9 @@ Global Symbols
 <P><STRONG><a name="[b4]"></a>LED_update</STRONG> (Thumb, 156 bytes, Stack size 8 bytes, led_driver.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = LED_update &rArr; LED_setPins
 </UL>
-<BR>[Calls]<UL><LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_WritePin
-<LI><a href="#[e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED_setPins
-<LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;switch_alarm_light
+<BR>[Calls]<UL><LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_WritePin
+<LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED_setPins
+<LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;switch_alarm_light
 </UL>
 <BR>[Called By]<UL><LI><a href="#[29]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM3_IRQHandler
 </UL>
@@ -610,7 +609,7 @@ Global Symbols
 <P><STRONG><a name="[ac]"></a>MAIL_CONTROLLER_init_mailboxes</STRONG> (Thumb, 28 bytes, Stack size 8 bytes, mail_controller.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = MAIL_CONTROLLER_init_mailboxes &rArr; osMailCreate &rArr; svcMailCreate &rArr; _init_box
 </UL>
-<BR>[Calls]<UL><LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osMailCreate
+<BR>[Calls]<UL><LI><a href="#[e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osMailCreate
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
@@ -619,7 +618,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;testFuntion
 </UL>
 
-<P><STRONG><a name="[d8]"></a>led_mailbox_id</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, mail_controller.o(.text))
+<P><STRONG><a name="[d7]"></a>led_mailbox_id</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, mail_controller.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Thread_LED
 </UL>
 
@@ -642,14 +641,14 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[8d]"></a>Thread_MAIL_CONTROLLER</STRONG> (Thumb, 524 bytes, Stack size 16 bytes, mail_controller.o(.text))
+<P><STRONG><a name="[8d]"></a>Thread_MAIL_CONTROLLER</STRONG> (Thumb, 474 bytes, Stack size 16 bytes, mail_controller.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = Thread_MAIL_CONTROLLER &rArr; osMailGet &rArr; osMessageGet &rArr; isrMessageGet &rArr; isr_mbx_receive &rArr; rt_psq_enq
 </UL>
-<BR>[Calls]<UL><LI><a href="#[d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osMailGet
-<LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osMailFree
+<BR>[Calls]<UL><LI><a href="#[d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osMailGet
+<LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osMailFree
 <LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osMailPut
 <LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osMailAlloc
-<LI><a href="#[d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
+<LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> mail_controller.o(.constdata)
 </UL>
@@ -692,7 +691,7 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = LIS3DSH_Write &rArr; LIS3DSH_SendByte
 </UL>
 <BR>[Calls]<UL><LI><a href="#[e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LIS3DSH_SendByte
-<LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_WritePin
+<LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_WritePin
 </UL>
 <BR>[Called By]<UL><LI><a href="#[f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LIS3DSH_FullScaleCmd
 <LI><a href="#[f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LIS3DSH_DataRateCmd
@@ -707,7 +706,7 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[ee]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SPI_Init
 <LI><a href="#[ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SPI_DeInit
 <LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LIS3DSH_Write
-<LI><a href="#[d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
+<LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 </UL>
 <BR>[Called By]<UL><LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;accelerometer_init
 </UL>
@@ -716,7 +715,7 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = LIS3DSH_Read &rArr; LIS3DSH_SendByte
 </UL>
 <BR>[Calls]<UL><LI><a href="#[e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LIS3DSH_SendByte
-<LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_WritePin
+<LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_WritePin
 </UL>
 <BR>[Called By]<UL><LI><a href="#[f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LIS3DSH_FullScaleCmd
 <LI><a href="#[f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LIS3DSH_DataRateCmd
@@ -763,7 +762,7 @@ Global Symbols
 <P><STRONG><a name="[f3]"></a>HAL_SPI_MspInit</STRONG> (Thumb, 218 bytes, Stack size 32 bytes, lis3dsh.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = HAL_SPI_MspInit &rArr; HAL_GPIO_Init
 </UL>
-<BR>[Calls]<UL><LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_WritePin
+<BR>[Calls]<UL><LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_WritePin
 <LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_Init
 </UL>
 <BR>[Called By]<UL><LI><a href="#[ee]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SPI_Init
@@ -1099,13 +1098,13 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;KP_update
 </UL>
 
-<P><STRONG><a name="[d4]"></a>HAL_GPIO_WritePin</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, stm32f4xx_hal_gpio.o(.text))
+<P><STRONG><a name="[d3]"></a>HAL_GPIO_WritePin</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, stm32f4xx_hal_gpio.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SPI_MspInit
 <LI><a href="#[ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LIS3DSH_Read
 <LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LIS3DSH_Write
-<LI><a href="#[e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED_setPins
-<LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;switch_alarm_light
-<LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED_alarm_off
+<LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED_setPins
+<LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;switch_alarm_light
+<LI><a href="#[d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED_alarm_off
 <LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED_update
 </UL>
 
@@ -2316,11 +2315,10 @@ Global Symbols
 
 <P><STRONG><a name="[258]"></a>__1printf$1</STRONG> (Thumb, 0 bytes, Stack size 24 bytes, printf1.o(i.__0printf$1), UNUSED)
 
-<P><STRONG><a name="[d1]"></a>__2printf</STRONG> (Thumb, 0 bytes, Stack size 24 bytes, printf1.o(i.__0printf$1))
+<P><STRONG><a name="[e2]"></a>__2printf</STRONG> (Thumb, 0 bytes, Stack size 24 bytes, printf1.o(i.__0printf$1))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = __2printf
 </UL>
 <BR>[Called By]<UL><LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Thread_MAIL_CONTROLLER
-<LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Thread_keypad
 <LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LIS3DSH_Init
 </UL>
 
@@ -2471,7 +2469,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[1bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;isrMessagePut
 </UL>
 
-<P><STRONG><a name="[d2]"></a>osDelay</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, rt_cmsis.o(i.osDelay))
+<P><STRONG><a name="[d1]"></a>osDelay</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, rt_cmsis.o(i.osDelay))
 <BR><BR>[Called By]<UL><LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Thread_keypad
 </UL>
 
@@ -2501,7 +2499,7 @@ Global Symbols
 <LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;testFuntion
 </UL>
 
-<P><STRONG><a name="[e2]"></a>osMailCreate</STRONG> (Thumb, 38 bytes, Stack size 0 bytes, rt_cmsis.o(i.osMailCreate))
+<P><STRONG><a name="[e1]"></a>osMailCreate</STRONG> (Thumb, 38 bytes, Stack size 0 bytes, rt_cmsis.o(i.osMailCreate))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = osMailCreate &rArr; svcMailCreate &rArr; _init_box
 </UL>
 <BR>[Calls]<UL><LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;svcMailCreate
@@ -2509,7 +2507,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MAIL_CONTROLLER_init_mailboxes
 </UL>
 
-<P><STRONG><a name="[df]"></a>osMailFree</STRONG> (Thumb, 22 bytes, Stack size 0 bytes, rt_cmsis.o(i.osMailFree))
+<P><STRONG><a name="[de]"></a>osMailFree</STRONG> (Thumb, 22 bytes, Stack size 0 bytes, rt_cmsis.o(i.osMailFree))
 <BR><BR>[Stack]<UL><LI>Max Depth = 44<LI>Call Chain = osMailFree &rArr; sysMailFree &rArr; rt_dispatch &rArr; rt_put_prio
 </UL>
 <BR>[Calls]<UL><LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sysMailFree
@@ -2518,7 +2516,7 @@ Global Symbols
 <LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Thread_LED
 </UL>
 
-<P><STRONG><a name="[d9]"></a>osMailGet</STRONG> (Thumb, 22 bytes, Stack size 8 bytes, rt_cmsis.o(i.osMailGet))
+<P><STRONG><a name="[d8]"></a>osMailGet</STRONG> (Thumb, 22 bytes, Stack size 8 bytes, rt_cmsis.o(i.osMailGet))
 <BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = osMailGet &rArr; osMessageGet &rArr; isrMessageGet &rArr; isr_mbx_receive &rArr; rt_psq_enq
 </UL>
 <BR>[Calls]<UL><LI><a href="#[1c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osMessageGet
@@ -2543,7 +2541,7 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[1bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;isrMessageGet
 </UL>
 <BR>[Called By]<UL><LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osTimerThread
-<LI><a href="#[d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osMailGet
+<LI><a href="#[d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osMailGet
 </UL>
 
 <P><STRONG><a name="[1c8]"></a>osMessagePut</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, rt_cmsis.o(i.osMessagePut))
@@ -3052,7 +3050,7 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[1f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rt_mbx_init
 <LI><a href="#[1e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_init_box
 </UL>
-<BR>[Called By]<UL><LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osMailCreate
+<BR>[Called By]<UL><LI><a href="#[e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osMailCreate
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> rt_cmsis.o(i.osMailCreate)
 </UL>
@@ -3163,7 +3161,7 @@ Global Symbols
 <LI><a href="#[1d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rt_dispatch
 <LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rt_alloc_box
 </UL>
-<BR>[Called By]<UL><LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osMailFree
+<BR>[Called By]<UL><LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osMailFree
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> rt_cmsis.o(i.osMailFree)
 </UL>
