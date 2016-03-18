@@ -57,44 +57,48 @@ osThreadDef(Thread_LED, osPriorityNormal, 1, 0);
 
 MAIL_package_type display_mode = MAIL_ANGLE;
 
+/**
+ * Start led thread
+ * @return  success
+ */
 int LED_start_thread(void){
 	tid_Thread_LED = osThreadCreate(osThread(Thread_LED ), NULL); // Start LED_Thread
 
-  	if (!tid_Thread_LED) return(-1); 
+  	if (!tid_Thread_LED) return(-1);
   	return(0);
 }
 
-
+//LED thread behaviour
 void Thread_LED (void const *argument) {
 	int key = -1;
-	
+
 	osEvent event;
 	osMailQId  led_mailbox = led_mailbox_id();
 	MAIL_package_typedef *package_recieved;
-	
+
 	while(1){
 		event = osMailGet(led_mailbox, osWaitForever);
-		
+
 		if (event.status == osEventMail) {
 			package_recieved = (MAIL_package_typedef *) event.value.p;
-			
-			if (package_recieved->type == MAIL_TEMP) {
+
+			if (package_recieved->type == MAIL_TEMP) { //Recieved temp data
 				if (display_mode != MAIL_TEMP) {
 					display_mode = MAIL_TEMP;
 					LED_switch_temp();
 				}
 				LED_set_value(package_recieved->value);
-				
-			} else if (package_recieved->type == MAIL_ANGLE) {
+
+			} else if (package_recieved->type == MAIL_ANGLE) { //Recieved angle data
 				if (display_mode != MAIL_ANGLE) {
 					display_mode = MAIL_ANGLE;
 					LED_switch_angle();
 				}
-				
+
 				if (target_was_set) LED_set_value(package_recieved->value);
 				else LED_set_value(target_value);
-				
-			} else if (package_recieved->type == MAIL_KEY) {
+
+			} else if (package_recieved->type == MAIL_KEY) { //Recieved key input
 				if (display_mode == MAIL_ANGLE){
 					key = (int)package_recieved->value;
 					if (key == 11) {
@@ -104,7 +108,7 @@ void Thread_LED (void const *argument) {
 						LED_set_value(target_value);
 					}
 				}
-			}else if (package_recieved->type == MAIL_ALARM) {
+			}else if (package_recieved->type == MAIL_ALARM) { //Alarm toggle
 				if(package_recieved->value) LED_alarm_on();
 				else LED_alarm_off();
 			}
@@ -113,6 +117,7 @@ void Thread_LED (void const *argument) {
 	}
 }
 
+//Change one digit in a float number (used for target angle input)
 float change_digit(float number, int new_val){
   int base_int = (int)(number * 10);
 
@@ -122,7 +127,7 @@ float change_digit(float number, int new_val){
   int hundred = (base_int / 1000) % 10;
 
 	target_input_digit = (target_input_digit + 1) % 4;
-	
+
   if (target_input_digit == 3) {
     float decimal = ((float)dec) / 10;
     number -= decimal;
@@ -153,57 +158,73 @@ void LED_set_target(void){
 	target_was_set = 1;
 }
 
+/**
+ * Switch to displaying temp values
+ */
 void LED_switch_temp(void){
-	digit_mode = 1; 
+	digit_mode = 1;
 	moving_decimal_mode = 0;
 	decimal_digit = 1;
-	degree_mode = 0; 
+	degree_mode = 0;
 }
 
+/**
+ * switch to displaying angle / target input
+ */
 void LED_switch_angle(void){
 	if (target_was_set){
 		digit_mode = 0;
 		moving_decimal_mode = 1;
 	} else {
-		digit_mode = 1; 
+		digit_mode = 1;
 		moving_decimal_mode = 0;
 		decimal_digit = 1;
-		degree_mode = 0; 
+		degree_mode = 0;
 	}
 }
 
+/**
+ * set alarm on
+ */
 void LED_alarm_on(void){
 	blinking = 1;
 }
 
+/**
+ * set alarm off
+ */
 void LED_alarm_off(void){
 	blinking = 0;
 	HAL_GPIO_WritePin(ALARM_PORT, alarm_pins[alarm_led], GPIO_PIN_RESET);
 }
 
+//Switch to next alarm led
 void switch_alarm_light(){
 	HAL_GPIO_WritePin(ALARM_PORT, alarm_pins[alarm_led], GPIO_PIN_RESET);
 	alarm_led = (alarm_led + 1) % 4;
 	HAL_GPIO_WritePin(ALARM_PORT, alarm_pins[alarm_led], GPIO_PIN_SET);
 }
 
+/**
+ * init led gpio
+ */
 void LED_init_io (void){
 	GPIO_InitTypeDef LED_configuration;
-	
-	
+
+
 	__HAL_RCC_GPIOE_CLK_ENABLE();
-	
+
 	LED_configuration.Pin	= GPIO_PIN_1 | GPIO_PIN_10 | GPIO_PIN_5 | GPIO_PIN_2 | GPIO_PIN_8 | GPIO_PIN_4 | GPIO_PIN_6 | GPIO_PIN_7 | GPIO_PIN_15 | GPIO_PIN_9 | GPIO_PIN_11 | GPIO_PIN_12 | GPIO_PIN_13 | GPIO_PIN_14 | GPIO_PIN_10;
 	LED_configuration.Mode 	= GPIO_MODE_OUTPUT_PP;
 	LED_configuration.Pull	= GPIO_NOPULL;
-	HAL_GPIO_Init(GPIOE, &LED_configuration);	
-	
+	HAL_GPIO_Init(GPIOE, &LED_configuration);
+
 	__HAL_RCC_GPIOD_CLK_ENABLE();
-	
+
 	LED_configuration.Pin	= GPIO_PIN_15 | GPIO_PIN_12 | GPIO_PIN_13 | GPIO_PIN_14;
 	LED_configuration.Mode 	= GPIO_MODE_OUTPUT_PP;
 	LED_configuration.Pull	= GPIO_NOPULL;
-	HAL_GPIO_Init(GPIOD, &LED_configuration);	
+	HAL_GPIO_Init(GPIOD, &LED_configuration);
 
 }
 ///BEHAVIOUR FUNCTIONS ------------------------------------
@@ -217,8 +238,8 @@ void LED_update(void){
 			alarm_count = 0;
 		}
 		alarm_count++;
-		
-		
+
+
 		blinking_count = (blinking_count + 1) % MAX_BLINK_COUNT;
 		if (blinking_count < HALF_BLINK_COUNT) {
 			HAL_GPIO_WritePin(LED_PORT, digits[current_digit], GPIO_PIN_RESET);
@@ -287,7 +308,7 @@ void LED_set_value(float new_value){
 			if (new_value > target_value + 5 || new_value < target_value - 5){
 				digit_mode = 0;
 			}
-			
+
 			if (new_value > 99.9f) {
 				decimal_digit = 4;
 				led_segments(11, digit_segments[0]);

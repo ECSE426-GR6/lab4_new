@@ -35,27 +35,31 @@ void Thread_keypad(void const *argument);					// thread function
 osThreadId tid_Thread_keypad;                              // thread id
 osThreadDef(Thread_keypad, osPriorityBelowNormal, 1, 0);
 
+/**
+ * Start kp thread
+ * @return  success
+ */
 int KEYPAD_start_thread(void) {
 	tid_Thread_keypad = osThreadCreate(osThread(Thread_keypad), NULL); // Start LED_Thread
 
-	if (!tid_Thread_keypad) return (-1); 
+	if (!tid_Thread_keypad) return (-1);
 	return (0);
 }
 
-
+//Kp thread behaviour
 void Thread_keypad(void const *argument) {
 	int key = -1;
-	
-	
+
+
 	while (1) {
 		KP_update();
-		
+
 		key = KP_getEvent();
-		
+
 		if (key != -1){
 			MAIL_send_input(MAIL_KEY, (float) key);
 		}
-		
+
 		osDelay(10);
 	}
 }
@@ -65,10 +69,10 @@ void Thread_keypad(void const *argument) {
 * Scanning the keypad and keeping track of the button state
 */
 void KP_update(void){
-	
 
-	
-	
+
+
+
 	cols[0] = HAL_GPIO_ReadPin(KP_PORT, COL_0_PIN);
 	cols[1] = HAL_GPIO_ReadPin(KP_PORT, COL_1_PIN);
 	cols[2] = HAL_GPIO_ReadPin(KP_PORT, COL_2_PIN);
@@ -126,7 +130,7 @@ void update_latched(void){
 				latched = 0;
 				latch_ready = 0;
 				event_ready = 1;
-				
+
 				event_value = values[latch_y][latch_x];
 			}
 		}
@@ -145,7 +149,7 @@ void latch_count_update(void){
 }
 
 /**
-* Get previously latched key 
+* Get previously latched key
 * Returns the last button that was clicked (pressed, stabilized and released)
 */
 
@@ -193,9 +197,9 @@ int KP_getValueDown(void){
 
 void KP_init(void){
 	GPIO_InitTypeDef GPIO_InitStruct;
-	
+
 	__GPIOC_CLK_ENABLE();
-	
+
 	GPIO_InitStruct.Pin = GPIO_PIN_6 | GPIO_PIN_7 | GPIO_PIN_8 | GPIO_PIN_9 | GPIO_PIN_10 | GPIO_PIN_11 | GPIO_PIN_12;
 	GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
 	GPIO_InitStruct.Pull = GPIO_PULLDOWN;
@@ -203,6 +207,3 @@ void KP_init(void){
 	HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
 }
-
-
-

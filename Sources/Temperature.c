@@ -3,6 +3,9 @@
 
 ADC_HandleTypeDef g_AdcHandle;
 
+/**
+ * Configure adc and temp channel
+ */
 void ConfigureADC(void)
 {
 		ADC_ChannelConfTypeDef adcChannel;
@@ -28,7 +31,7 @@ void ConfigureADC(void)
     // g_AdcHandle.Init.EOCSelection = DISABLE;
 
     HAL_ADC_Init(&g_AdcHandle);
-    
+
 
     adcChannel.Channel = ADC_CHANNEL_TEMPSENSOR;
     adcChannel.Rank = 1;
@@ -36,12 +39,12 @@ void ConfigureADC(void)
     adcChannel.Offset = 0;
 
     HAL_ADC_ConfigChannel(&g_AdcHandle, &adcChannel);
-		
+
 		HAL_ADC_Start(&g_AdcHandle);
 }
 
 
-
+//Convert adc voltage to degrees celcius
 float convertVtoC(int voltage){
 	float convert = (float)voltage;
 	convert *= 3000; //MV max voltage
@@ -54,6 +57,10 @@ float convertVtoC(int voltage){
 	return convert;
 }
 
+/**
+ * Get current cpu temp
+ * @return  cpu temp in degrees celcius
+ */
 float getTemp(void){
 	return convertVtoC(HAL_ADC_GetValue(&g_AdcHandle));
 }

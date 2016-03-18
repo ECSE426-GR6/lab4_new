@@ -11,6 +11,14 @@ typedef struct StateVars{
 kalman_state temp_kstate;
 kalman_state acc_kstate;
 
+/**
+ * init temp kalman state
+ * @param q
+ * @param r
+ * @param x
+ * @param p
+ * @param k
+ */
 void init_temp_kstate(float q, float r, float x, float p, float k){
 		temp_kstate.q = q;
     temp_kstate.r = r;
@@ -19,6 +27,14 @@ void init_temp_kstate(float q, float r, float x, float p, float k){
     temp_kstate.k = k;
 }
 
+/**
+ * init acc kalman state
+ * @param q
+ * @param r
+ * @param x
+ * @param p
+ * @param k
+ */
 void init_acc_kstate(float q, float r, float x, float p, float k){
 		acc_kstate.q = q;
     acc_kstate.r = r;
@@ -27,6 +43,11 @@ void init_acc_kstate(float q, float r, float x, float p, float k){
     acc_kstate.k = k;
 }
 
+/**
+ * filter one temp measurement and update k state
+ * @param  measurement input
+ * @return             filtered value
+ */
 float k_filter_temp(float measurement){
 	temp_kstate.p = temp_kstate.p + temp_kstate.q;
 	temp_kstate.k = temp_kstate.p  / (temp_kstate.p + temp_kstate.r);
@@ -35,6 +56,11 @@ float k_filter_temp(float measurement){
 	return temp_kstate.x;
 }
 
+/**
+ * filter one acc value and update kalman_state
+ * @param  measurement input
+ * @return             filtered value
+ */
 float k_filter_acc(float measurement){
 	acc_kstate.p = acc_kstate.p + acc_kstate.q;
 	acc_kstate.k = acc_kstate.p  / (acc_kstate.p + acc_kstate.r);
@@ -42,4 +68,3 @@ float k_filter_acc(float measurement){
 	acc_kstate.p = (1 - acc_kstate.k) * acc_kstate.p;
 	return acc_kstate.x;
 }
-

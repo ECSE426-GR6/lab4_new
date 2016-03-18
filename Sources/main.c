@@ -4,10 +4,10 @@
 	* @version V1.2.0
   * @date    17-January-2016
   * @brief   This file demonstrates flasing one LED at an interval of one second
-	*          RTX based using CMSIS-RTOS 
+	*          RTX based using CMSIS-RTOS
   ******************************************************************************
   */
-   
+
 #include "stm32f4xx_hal.h"              // Keil::Device:STM32Cube HAL:Common
 #include "cmsis_os.h"					// ARM::CMSIS:RTOS:Keil RTX
 #include "RTE_Components.h"             // Component selection
@@ -16,7 +16,7 @@
 #include "Temperature.h"
 #include "mail_controller.h"
 #include "kp_driver.h"
-#include "kalman.h" 
+#include "kalman.h"
 
 extern void initializeLED_IO			(void);
 extern void start_Thread_LED			(void);
@@ -24,12 +24,12 @@ extern void Thread_LED(void const *argument);
 extern osThreadId tid_Thread_LED;
 
 const int ACC_DATA_READY_SIGNAL = 10;
-
 void accelerometer_thread(void const *argument);
 int accelerometer_start_thread(void);
 
 osThreadId accelerometer_thread_id;
 osThreadDef(accelerometer_thread, osPriorityNormal, 1, 0);
+
 
 const int TEMP_DATA_READY_SIGNAL = 20;
 void temperature_thread(void const *argument);
@@ -48,8 +48,8 @@ void testFuntion(void);
 #ifdef RTE_CMSIS_RTOS_RTX
 extern uint32_t os_time;
 
-uint32_t HAL_GetTick(void) { 
-  return os_time; 
+uint32_t HAL_GetTick(void) {
+  return os_time;
 }
 #endif
 
@@ -103,29 +103,28 @@ int main (void) {
 	/* User codes goes here*/
 	// initializeLED_IO();                       /* Initialize LED GPIO Buttons    */
 	// start_Thread_LED();                       /* Create LED thread              */
- 
+
 	init_acc_kstate(0.01f, 0.1f, 0.0f, 0.1f, 0.0f);
 	init_temp_kstate(0.005f, 0.05f, 0.0f, 5.0f, 0.0f);
-	
+
 	MAIL_CONTROLLER_init_mailboxes();
 	ConfigureADC();
 	accelerometer_init();
 	LED_init_io();
 	KP_init();
-	
+
 	TIM3_init();
 	TIM4_init();
-	
+
 	MAIL_CONTROLLER_start_thread();
 	LED_start_thread();
 	temperature_start_thread();
 	accelerometer_start_thread();
 	KEYPAD_start_thread();
 	/* User codes ends here*/
-  
+
 	osKernelStart();                          /* start thread execution         */
-	
-	testFuntion();
+
 }
 
 
@@ -149,7 +148,7 @@ void TIM4_init(void){
 __TIM4_CLK_ENABLE();
 		TIM_Handle2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV4; // 168 MHz / 4 = 42 MHz
     TIM_Handle2.Init.Prescaler = 419; // 42 MHz / (419 + 1) = 100 KHz
-    TIM_Handle2.Init.Period = 9999; // 100 KHz / (9999 + 1) = 10 Hz
+    TIM_Handle2.Init.Period = 999; // 100 KHz / (9999 + 1) = 100 Hz
     TIM_Handle2.Init.CounterMode = TIM_COUNTERMODE_UP;
     TIM_Handle2.Instance = TIM4;   //Same timer whose clocks we enabled
     HAL_TIM_Base_Init(&TIM_Handle2);     // Init timer
@@ -177,9 +176,9 @@ void TIM4_IRQHandler(void)
         if (__HAL_TIM_GET_ITSTATUS(&TIM_Handle2, TIM_IT_UPDATE) != RESET)
         {
             __HAL_TIM_CLEAR_FLAG(&TIM_Handle2, TIM_FLAG_UPDATE);
-						
+
 						osSignalSet(temperature_thread_id, TEMP_DATA_READY_SIGNAL);
-					
+
         }
     }
 }
@@ -187,11 +186,11 @@ void TIM4_IRQHandler(void)
 void EXTI0_IRQHandler(void){
 
 	HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_0);
-	
+
 }
 
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_pin){
-  
+
 	if (GPIO_pin == GPIO_PIN_0){
 		osSignalSet(accelerometer_thread_id, ACC_DATA_READY_SIGNAL);
 	}
@@ -200,7 +199,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_pin){
 int accelerometer_start_thread(void){
 	accelerometer_thread_id = osThreadCreate(osThread(accelerometer_thread ), NULL); // Start LED_Thread
 
-  	if (!accelerometer_thread_id) return(-1); 
+  	if (!accelerometer_thread_id) return(-1);
   	return(0);
 }
 
@@ -210,41 +209,30 @@ void accelerometer_thread(void const *argument){
 	while (1){
 		osSignalWait(ACC_DATA_READY_SIGNAL, osWaitForever);
 		angle = Rangle();
-			
+
 		MAIL_send_input(MAIL_ANGLE, k_filter_acc(angle));
-		
+
 		osSignalClear(accelerometer_thread_id, ACC_DATA_READY_SIGNAL);
-		
+
 	}
 }
 
 int temperature_start_thread(void){
 	temperature_thread_id = osThreadCreate(osThread(temperature_thread ), NULL); // Start LED_Thread
 
-  	if (!temperature_thread_id) return(-1); 
+  	if (!temperature_thread_id) return(-1);
   	return(0);
 }
 
 void temperature_thread(void const *argument) {
 	float temp;
-	
+
 	while (1){
 		osSignalWait(TEMP_DATA_READY_SIGNAL, osWaitForever);
-		
+
 		temp = getTemp();
 		MAIL_send_input(MAIL_TEMP, k_filter_temp(temp));
-		
+
 		osSignalClear(temperature_thread_id, ACC_DATA_READY_SIGNAL);
 	}
-}
-
-void testFuntion(void){
-	osMailQId input_mailbox = input_mailbox_id();
-	MAIL_package_typedef *package_to_send;
-	
-	package_to_send = osMailAlloc(input_mailbox, osWaitForever);
-	package_to_send->value = 877.3f;
-	package_to_send->type = MAIL_TEMP;
-	osMailPut(input_mailbox, package_to_send);
-
 }
